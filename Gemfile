@@ -20,6 +20,7 @@ gem 'pg'
 gem 'rails_config'
 gem 'simple_form'
 gem 'squeel'
+gem 'ancestry'
 
 group :development do
   gem 'annotate', '~> 2.6.6'
