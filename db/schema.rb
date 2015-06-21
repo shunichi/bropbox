@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150621075504) do
+ActiveRecord::Schema.define(version: 20150621080135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,26 @@ ActiveRecord::Schema.define(version: 20150621075504) do
 
   add_index "fileitems", ["directory_id"], name: "index_fileitems_on_directory_id", using: :btree
 
+  create_table "shared_directories", force: :cascade do |t|
+    t.integer  "directory_id", null: false
+    t.integer  "user_id",      null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "shared_directories", ["directory_id"], name: "index_shared_directories_on_directory_id", using: :btree
+  add_index "shared_directories", ["user_id"], name: "index_shared_directories_on_user_id", using: :btree
+
+  create_table "shared_files", force: :cascade do |t|
+    t.integer  "fileitem_id", null: false
+    t.integer  "user_id",     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "shared_files", ["fileitem_id"], name: "index_shared_files_on_fileitem_id", using: :btree
+  add_index "shared_files", ["user_id"], name: "index_shared_files_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -73,4 +93,8 @@ ActiveRecord::Schema.define(version: 20150621075504) do
   add_foreign_key "events", "fileitems"
   add_foreign_key "events", "users"
   add_foreign_key "fileitems", "directories"
+  add_foreign_key "shared_directories", "directories"
+  add_foreign_key "shared_directories", "users"
+  add_foreign_key "shared_files", "fileitems"
+  add_foreign_key "shared_files", "users"
 end
