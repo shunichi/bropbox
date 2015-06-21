@@ -38,11 +38,11 @@
                 = link_to new_user_session_path do
                   %span.glyphicon.glyphicon-log-in
                   サインイン
-    - if notice
-      .alert.alert-success
-        = notice
-    - if alert
-      .alert.alert-danger
-        = alert
     .container
+      - if notice
+        .alert.alert-success
+          = notice
+      - if alert
+        .alert.alert-danger
+          = alert
       = yield

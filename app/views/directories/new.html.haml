@@ -1,0 +1,9 @@
+%h1
+  フォルダの新規作成
+
+%hr
+
+= simple_form_for(@directory) do |f|
+  = f.input :name, label: 'フォルダ名を入力して下さい'
+  = hidden_field_tag 'parent_id', params[:parent_id]
+  = f.button :submit

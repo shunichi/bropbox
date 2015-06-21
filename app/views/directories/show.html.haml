@@ -1,0 +1,31 @@
+%ul.list-inline
+  %li
+    = link_to [:new, :directory, parent_id: @directory.id], class: 'btn btn-primary' do
+      %span.glyphicon.glyphicon-plus
+      %span.glyphicon.glyphicon-folder-close
+      新規フォルダ
+  %li
+    = link_to '#TODO', class: 'btn btn-primary' do
+      %span.glyphicon.glyphicon-plus
+      %span.glyphicon.glyphicon-file
+      新規ファイル
+
+%hr
+  - if @directory.children.empty? && @directory.files.empty?
+    .text-muted
+      データがありません
+  - else
+    %table.table.table-responsive
+      - @directory.children.each do |dir|
+        %tr
+          %td
+            %span.glyphicon.glyphicon-folder-close
+            %strong= link_to truncate(dir.name), [dir]
+          %td
+            %ul.list-inline
+              %li
+                = link_to 'Rename', [:edit, dir]
+              %li
+                = link_to 'Move', [:move, dir]
+              %li
+                = link_to 'Copy', [:copy, dir]
