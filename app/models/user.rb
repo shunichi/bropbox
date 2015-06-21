@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :directories
+  has_many :events
 
   after_create :create_root_directory
 
