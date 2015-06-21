@@ -1,0 +1,13 @@
+.jumbotron
+  %h1
+    ようこそ
+  %hr.invisible
+  %p
+    Bropbox をお使いいただくには
+    %strong= link_to 'ユーザー登録', new_user_registration_path
+    が必要です.
+  %hr.invisible
+  %p
+    ユーザー登録が既にお済みの方は
+    %strong= link_to 'サインイン', new_user_session_path
+    して下さい.
