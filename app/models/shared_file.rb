@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: shared_files
+#
+#  id          :integer          not null, primary key
+#  fileitem_id :integer          not null
+#  user_id     :integer          not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 class SharedFile < ActiveRecord::Base
   belongs_to :fileitem
   belongs_to :user

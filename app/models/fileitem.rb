@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: fileitems
+#
+#  id           :integer          not null, primary key
+#  directory_id :integer
+#  name         :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  bindata      :binary
+#
+
 class Fileitem < ActiveRecord::Base
   belongs_to :directory
 
