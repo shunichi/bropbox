@@ -1,0 +1,7 @@
+= simple_form_for(@directory) do |f|
+  = f.input :name, label: 'フォルダ名を入力して下さい'
+  - if @directory.new_record?
+    = hidden_field_tag 'parent_id', params[:parent_id]
+  - else
+    = hidden_field_tag 'parent_id', @directory.parent_id
+  = f.button :submit

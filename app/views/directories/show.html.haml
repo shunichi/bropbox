@@ -10,7 +10,8 @@
       %span.glyphicon.glyphicon-file
       新規ファイル
 
-%hr
+%hr.invisible
+
   - if @directory.children.empty? && @directory.files.empty?
     .text-muted
       データがありません

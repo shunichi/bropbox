@@ -25,6 +25,13 @@ class DirectoriesController < ApplicationController
   end
 
   def update
+    respond_to do |format|
+      if @directory.update(directory_params)
+        format.html { redirect_to [@directory.parent], notice: 'フォルダ名を変更しました' }
+      else
+        format.html { render 'edit' }
+      end
+    end
   end
 
   def destroy
