@@ -1,5 +1,5 @@
 class Fileitem < ActiveRecord::Base
-  belongs_to :directory, dependent: :destroy
+  belongs_to :directory
 
   has_many :events
 

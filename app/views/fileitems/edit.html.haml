@@ -1,0 +1,8 @@
+%h1
+  ファイル名 変更
+
+%hr
+
+= simple_form_for(@file, url: [@file.directory, @file]) do |f|
+  = f.input :name, label: 'ファイル名を入力して下さい'
+  = f.button :submit, '変更'
