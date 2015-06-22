@@ -35,6 +35,8 @@ class DirectoriesController < ApplicationController
   end
 
   def destroy
+    @directory.destroy
+    redirect_to [@directory.parent], notice: "#{@directory.name} を削除しました"
   end
 
   def move

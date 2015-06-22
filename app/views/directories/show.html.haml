@@ -30,3 +30,5 @@
                 = link_to 'Move', [:move, dir]
               %li
                 = link_to 'Copy', [:copy, dir]
+              %li
+                = link_to 'Remove', [dir], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
