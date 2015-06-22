@@ -4,6 +4,7 @@ class FileitemsController < ApplicationController
   before_action :set_file, only: %i(show edit update destroy move update copy share)
 
   def show
+    send_data(@file.bindata, filename: ERB::Util.url_encode(@file.name))
   end
 
   def new

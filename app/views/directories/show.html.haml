@@ -32,7 +32,7 @@
                 %li
                   = link_to 'Copy', [:copy, dir]
                 %li
-                  = link_to 'Remove', [dir], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
+                  = link_to 'Delete', [dir], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
       - @directory.files.each do |file|
         %tr
           %td
@@ -48,4 +48,4 @@
                 %li
                   = link_to 'Copy', [:copy, file.directory, file]
                 %li
-                  = link_to 'Remove', [file.directory, file], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
+                  = link_to 'Delete', [file.directory, file], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}

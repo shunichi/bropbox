@@ -1,7 +1,7 @@
 class Directory < ActiveRecord::Base
   belongs_to :user
 
-  has_many :files, class_name: 'Fileitem'
+  has_many :files, class_name: 'Fileitem', dependent: :destroy
   has_many :events
 
   validates :user_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
