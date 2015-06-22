@@ -1,7 +1,10 @@
 class FileitemsController < ApplicationController
   before_action :set_directory
   before_action :build_new_file, only: %i(new create)
-  before_action :set_file, only: %i(show edit update destroy move update copy share)
+  before_action :set_file, only: %i(show edit update destroy move copy share)
+  before_action :set_source_path, only: %i(update destroy move copy)
+
+  after_action :save_event_log, only: %i(create update destroy move copy share)
 
   def show
     send_data(@file.bindata, filename: ERB::Util.url_encode(@file.name))
@@ -63,7 +66,22 @@ class FileitemsController < ApplicationController
     @file = @directory.files.find(params[:id])
   end
 
+  def set_source_path
+    @source_path = @file.pathname
+  end
+
   def file_params
     params.require(:fileitem).permit(:name)
+  end
+
+  def save_event_log
+    event                  = current_user.events.new
+    event.directory_id     = @directory.id
+    event.fileitem_id      = @file.id
+    event.request          = request
+    event.action           = params[:action]
+    event.path             = @source_path.present? ? @source_path : @file.pathname
+    event.destination_path = @file.pathname if %w(update move copy).include?(params[:action])
+    event.save!
   end
 end

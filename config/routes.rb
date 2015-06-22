@@ -13,4 +13,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :events, only: %i(index)
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150621080135) do
+ActiveRecord::Schema.define(version: 20150622125642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,17 +27,19 @@ ActiveRecord::Schema.define(version: 20150621080135) do
   add_index "directories", ["user_id"], name: "index_directories_on_user_id", using: :btree
 
   create_table "events", force: :cascade do |t|
-    t.integer  "user_id",      null: false
-    t.integer  "directory_id", null: false
+    t.integer  "user_id",          null: false
+    t.integer  "directory_id"
     t.integer  "fileitem_id"
-    t.string   "url"
+    t.string   "request_method",   null: false
+    t.string   "request_url",      null: false
+    t.string   "action",           null: false
     t.string   "message"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "path",             null: false
+    t.string   "destination_path"
   end
 
-  add_index "events", ["directory_id"], name: "index_events_on_directory_id", using: :btree
-  add_index "events", ["fileitem_id"], name: "index_events_on_fileitem_id", using: :btree
   add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
 
   create_table "fileitems", force: :cascade do |t|
@@ -89,8 +91,6 @@ ActiveRecord::Schema.define(version: 20150621080135) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "directories", "users"
-  add_foreign_key "events", "directories"
-  add_foreign_key "events", "fileitems"
   add_foreign_key "events", "users"
   add_foreign_key "fileitems", "directories"
   add_foreign_key "shared_directories", "directories"

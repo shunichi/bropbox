@@ -1,0 +1,30 @@
+%h1
+  操作履歴 一覧
+
+%hr
+
+- if @events.empty?
+  .well
+    .text-muted
+      操作履歴がありません.
+- else
+  = paginate @events
+  %table.table.table-responsive.table-hover
+    %thead
+      %tr
+        %th
+          操作日時
+        %th
+          操作対象
+        %th
+          操作概要
+    %tbody
+      - @events.each do |event|
+        %tr
+          %td
+            = l event.created_at
+          %td
+            = event.path
+          %td
+            = event.message
+  = paginate @events

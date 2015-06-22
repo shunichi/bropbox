@@ -1,6 +1,9 @@
 class DirectoriesController < ApplicationController
-  before_action :set_directory, only: %i(show edit update destroy move update copy share)
+  before_action :set_directory, only: %i(show edit update destroy update move copy share)
+  before_action :set_source_path, only: %i(update destroy move copy)
   before_action :set_parent_directory, only: %i(new create)
+
+  after_action :save_event_log, only: %i(create update destroy move copy share)
 
   def show
   end
@@ -54,11 +57,25 @@ class DirectoriesController < ApplicationController
     @directory = current_user.directories.find(params[:id])
   end
 
+  def set_source_path
+    @source_path = @directory.pathname
+  end
+
   def set_parent_directory
     @parent_directory = current_user.directories.find(params[:parent_id])
   end
 
   def directory_params
     params.require(:directory).permit(:name)
+  end
+
+  def save_event_log
+    event                  = current_user.events.new
+    event.directory_id     = @directory.id
+    event.request          = request
+    event.action           = params[:action]
+    event.path             = @source_path.present? ? @source_path : @directory.pathname
+    event.destination_path = @directory.pathname if %w(update move copy).include?(params[:action])
+    event.save!
   end
 end
