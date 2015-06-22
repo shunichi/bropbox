@@ -1,0 +1,8 @@
+%h1
+  新規ファイルのアップロード
+
+%hr
+
+= simple_form_for(@file, url: [@file.directory, :files]) do |f|
+  = f.input :bindata, as: :file, label: false
+  = f.button :submit, 'アップロード'

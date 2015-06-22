@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :directories
   has_many :events
+  has_many :files, class_name: 'Fileitem'
 
   after_create :create_root_directory
 

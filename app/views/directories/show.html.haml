@@ -5,7 +5,7 @@
       %span.glyphicon.glyphicon-folder-close
       新規フォルダ
   %li
-    = link_to '#TODO', class: 'btn btn-primary' do
+    = link_to [:new, @directory, :fileitem], class: 'btn btn-primary' do
       %span.glyphicon.glyphicon-plus
       %span.glyphicon.glyphicon-file
       新規ファイル
@@ -21,14 +21,31 @@
         %tr
           %td
             %span.glyphicon.glyphicon-folder-close
-            %strong= link_to truncate(dir.name), [dir]
+            %strong= link_to dir.name, [dir]
           %td
-            %ul.list-inline
-              %li
-                = link_to 'Rename', [:edit, dir]
-              %li
-                = link_to 'Move', [:move, dir]
-              %li
-                = link_to 'Copy', [:copy, dir]
-              %li
-                = link_to 'Remove', [dir], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
+            .text-right
+              %ul.list-inline
+                %li
+                  = link_to 'Rename', [:edit, dir]
+                %li
+                  = link_to 'Move', [:move, dir]
+                %li
+                  = link_to 'Copy', [:copy, dir]
+                %li
+                  = link_to 'Remove', [dir], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
+      - @directory.files.each do |file|
+        %tr
+          %td
+            %span.glyphicon.glyphicon-file
+            %strong= link_to file.name, [file.directory, file]
+          %td
+            .text-right
+              %ul.list-inline
+                %li
+                  = link_to 'Rename', [:edit, file.directory, file]
+                %li
+                  = link_to 'Move', [:move, file.directory, file]
+                %li
+                  = link_to 'Copy', [:copy, file.directory, file]
+                %li
+                  = link_to 'Remove', [file.directory, file], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}

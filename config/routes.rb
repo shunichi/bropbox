@@ -7,5 +7,10 @@ Rails.application.routes.draw do
     member do
       post :move, :copy, :share
     end
+    resources :fileitems, only: %i(show new create edit update destroy) do
+      member do
+        post :move, :copy, :share
+      end
+    end
   end
 end
