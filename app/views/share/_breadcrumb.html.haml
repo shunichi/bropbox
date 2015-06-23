@@ -1,0 +1,14 @@
+- unless directory.root?
+  %ol.breadcrumb
+    - directory.path.each do |dir|
+      - if dir.root?
+        %li
+          = link_to root_path do
+            %span.glyphicon.glyphicon-home
+      - else
+        - if dir.id == directory.id
+          %li.active
+            = dir.name
+        - else
+          %li
+            = link_to dir.name, [dir], class: 'active'

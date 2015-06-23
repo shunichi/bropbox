@@ -12,40 +12,42 @@
 
 %hr.invisible
 
-  - if @directory.children.empty? && @directory.files.empty?
-    .text-muted
-      データがありません
-  - else
-    %table.table.table-responsive
-      - @directory.children.each do |dir|
-        %tr
-          %td
-            %span.glyphicon.glyphicon-folder-close
-            %strong= link_to dir.name, [dir]
-          %td
-            .text-right
-              %ul.list-inline
-                %li
-                  = link_to 'Rename', [:edit, dir]
-                %li
-                  = link_to 'Move', [:move, dir]
-                %li
-                  = link_to 'Copy', [:copy, dir]
-                %li
-                  = link_to 'Delete', [dir], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
-      - @directory.files.each do |file|
-        %tr
-          %td
-            %span.glyphicon.glyphicon-file
-            %strong= link_to file.name, [file.directory, file]
-          %td
-            .text-right
-              %ul.list-inline
-                %li
-                  = link_to 'Rename', [:edit, file.directory, file]
-                %li
-                  = link_to 'Move', [:move, file.directory, file]
-                %li
-                  = link_to 'Copy', [:copy, file.directory, file]
-                %li
-                  = link_to 'Delete', [file.directory, file], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
+= render 'share/breadcrumb', directory: @directory
+
+- if @directory.children.empty? && @directory.files.empty?
+  .text-muted
+    データがありません
+- else
+  %table.table.table-responsive
+    - @directory.children.each do |dir|
+      %tr
+        %td
+          %span.glyphicon.glyphicon-folder-close
+          %strong= link_to dir.name, [dir]
+        %td
+          .text-right
+            %ul.list-inline
+              %li
+                = link_to 'Rename', [:edit, dir]
+              %li
+                = link_to 'Move', [:move, dir]
+              %li
+                = link_to 'Copy', [:copy, dir]
+              %li
+                = link_to 'Delete', [dir], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
+    - @directory.files.each do |file|
+      %tr
+        %td
+          %span.glyphicon.glyphicon-file
+          %strong= link_to file.name, [file.directory, file]
+        %td
+          .text-right
+            %ul.list-inline
+              %li
+                = link_to 'Rename', [:edit, file.directory, file]
+              %li
+                = link_to 'Move', [:move, file.directory, file]
+              %li
+                = link_to 'Copy', [:copy, file.directory, file]
+              %li
+                = link_to 'Delete', [file.directory, file], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
