@@ -38,7 +38,7 @@ class DirectoriesController < ApplicationController
   end
 
   def destroy
-    @destroyed_directory = @directory
+    @destroyed_path = @directory.pathname
     @directory.destroy
     redirect_to [@directory.parent], notice: "#{@directory.name} を削除しました"
   end
@@ -84,7 +84,7 @@ class DirectoriesController < ApplicationController
     event.directory_id     = @directory.id
     event.request          = request
     event.action           = params[:action]
-    event.path             = @directory.pathname || @destroyed_directory.pathname
+    event.path             = @directory.pathname.present? ? @directory.pathname : @destroyed_path
     event.destination_path = @destination_directory.pathname if %w(update move copy).include?(params[:action])
     event.save!
   end
