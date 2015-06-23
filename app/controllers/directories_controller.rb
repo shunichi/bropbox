@@ -1,7 +1,7 @@
 class DirectoriesController < ApplicationController
   before_action :set_directory, only: %i(show edit update destroy update move copy share)
-  before_action :set_source_path, only: %i(update destroy move copy)
   before_action :set_parent_directory, only: %i(new create)
+  before_action :set_destination_directory, only: %i(update move copy)
 
   after_action :save_event_log, only: %i(create update destroy move copy share)
 
@@ -38,14 +38,23 @@ class DirectoriesController < ApplicationController
   end
 
   def destroy
+    @destroyed_directory = @directory
     @directory.destroy
     redirect_to [@directory.parent], notice: "#{@directory.name} を削除しました"
   end
 
   def move
+    @directory.move(@destination_directory)
+    respond_to do |format|
+      format.json
+    end
   end
 
   def copy
+    @directory.copy(@destination_directory)
+    respond_to do |format|
+      format.json
+    end
   end
 
   def share
@@ -57,12 +66,13 @@ class DirectoriesController < ApplicationController
     @directory = current_user.directories.find(params[:id])
   end
 
-  def set_source_path
-    @source_path = @directory.pathname
-  end
-
   def set_parent_directory
     @parent_directory = current_user.directories.find(params[:parent_id])
+  end
+
+  def set_destination_directory
+    return @directory if params[:destination_id].blank?
+    @destination_directory = current_user.directories.find(params[:destination_id])
   end
 
   def directory_params
@@ -74,8 +84,8 @@ class DirectoriesController < ApplicationController
     event.directory_id     = @directory.id
     event.request          = request
     event.action           = params[:action]
-    event.path             = @source_path.present? ? @source_path : @directory.pathname
-    event.destination_path = @directory.pathname if %w(update move copy).include?(params[:action])
+    event.path             = @directory.pathname || @destroyed_directory.pathname
+    event.destination_path = @destination_directory.pathname if %w(update move copy).include?(params[:action])
     event.save!
   end
 end

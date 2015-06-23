@@ -1,0 +1,22 @@
+.modal.fade{id: "js-modal-#{kind}", role: 'dialog'}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{data: {dismiss: 'modal'}, aria: {label: '閉じる'}}
+          %span{aria: {hidden: 'true'}} &times;
+        移動（コピー）先を選択して下さい
+      .modal-body
+        .alert.alert-danger.hide{data: {id: 'modal-alert-danger'}}
+        = render 'tree'
+      .modal-footer
+        %ul.list-inline
+          - if kind == 'directory'
+            %li
+              = link_to 'Move', '#', class: 'btn btn-danger', data: {id: 'dir-move-btn', url: polymorphic_path([:move, :directory])}
+            %li
+              = link_to 'Copy', '#', class: 'btn btn-primary', data: {id: 'dir-copy-btn', url: polymorphic_path([:copy, :directory])}
+          - else
+            %li
+              = link_to 'Move', '#', class: 'btn btn-danger', data: {id: 'file-move-btn', url: polymorphic_path([:move, :fileitem])}
+            %li
+              = link_to 'Copy', '#', class: 'btn btn-primary', data: {id: 'file-copy-btn', url: polymorphic_path([:copy, :fileitem])}

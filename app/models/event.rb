@@ -32,7 +32,7 @@ class Event < ActiveRecord::Base
   before_validation :set_request_method, :set_request_url
   before_create :set_message
 
-  paginates_per 20
+  paginates_per 10
 
   private
 

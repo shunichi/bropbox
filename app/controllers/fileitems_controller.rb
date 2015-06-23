@@ -1,13 +1,12 @@
 class FileitemsController < ApplicationController
   before_action :set_directory
   before_action :build_new_file, only: %i(new create)
-  before_action :set_file, only: %i(show edit update destroy move copy share)
+  before_action :set_file, only: %i(show edit update destroy move copy share download)
   before_action :set_source_path, only: %i(update destroy move copy)
 
   after_action :save_event_log, only: %i(create update destroy move copy share)
 
   def show
-    send_data(@file.bindata, filename: ERB::Util.url_encode(@file.name))
   end
 
   def new
@@ -50,6 +49,10 @@ class FileitemsController < ApplicationController
   end
 
   def share
+  end
+
+  def download
+    send_data(@file.bindata, filename: ERB::Util.url_encode(@file.name))
   end
 
   private

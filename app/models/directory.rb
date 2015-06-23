@@ -27,6 +27,14 @@ class Directory < ActiveRecord::Base
     path.each.inject([]) { |arr, dir| arr<<dir.name.gsub('/', '') }.join('/')
   end
 
+  def move(destination)
+    self.update(parent: destination)
+  end
+
+  def copy(destination)
+    destination.user.directories.create(name: self.name, parent: destination)
+  end
+
   private
 
   def destroy_children

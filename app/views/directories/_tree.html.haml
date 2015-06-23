@@ -1,0 +1,5 @@
+#js-tree.tree{data: {source: {id: 0}, destination: {id: 0}}}
+  - current_user.root_directory.subtree.each do |dir|
+    .tree-item{data: {id: dir.id, depth: dir.depth}}
+      %span.glyphicon.glyphicon-folder-close
+        = dir.name
