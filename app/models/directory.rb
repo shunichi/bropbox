@@ -21,11 +21,11 @@ class Directory < ActiveRecord::Base
 
   after_destroy :destroy_children
 
+  has_ancestry
+
   def pathname
     path.each.inject([]) { |arr, dir| arr<<dir.name.gsub('/', '') }.join('/')
   end
-
-  has_ancestry
 
   private
 
