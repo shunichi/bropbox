@@ -12,11 +12,11 @@
         %ul.list-inline
           - if kind == 'directory'
             %li
-              = link_to 'Move', '#', class: 'btn btn-danger', data: {id: 'dir-move-btn', url: polymorphic_path([:move, :directory])}
+              = link_to 'Move', '#', class: 'btn btn-danger', data: {role: 'post-btn', url: move_directory_path}
             %li
-              = link_to 'Copy', '#', class: 'btn btn-primary', data: {id: 'dir-copy-btn', url: polymorphic_path([:copy, :directory])}
-          - else
+              = link_to 'Copy', '#', class: 'btn btn-primary', data: {role: 'post-btn', url: copy_directory_path}
+          - if kind == 'file'
             %li
-              = link_to 'Move', '#', class: 'btn btn-danger', data: {id: 'file-move-btn', url: polymorphic_path([:move, :fileitem])}
+              = link_to 'Move', '#', class: 'btn btn-danger', data: {role: 'post-btn', url: move_fileitem_path}
             %li
-              = link_to 'Copy', '#', class: 'btn btn-primary', data: {id: 'file-copy-btn', url: polymorphic_path([:copy, :fileitem])}
+              = link_to 'Copy', '#', class: 'btn btn-primary', data: {role: 'post-btn', url: copy_fileitem_path}

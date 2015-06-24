@@ -47,15 +47,15 @@ class Event < ActiveRecord::Base
   def set_message
     self.message = case self.action
                    when 'create'
-                     "#{self.path} has created."
+                     "#{self.path} 作られました"
                    when 'update'
-                     "#{self.path} has renamed to #{self.destination_path}."
+                     "#{self.path} の名前が #{self.destination_path} に変更されました"
                    when 'destroy'
-                     "#{self.path} has destroyed."
+                     "#{self.path} が削除されました"
                    when 'move'
-                     "#{self.path} has moved to #{self.destination_path}."
+                     "#{self.path} が #{self.destination_path} に移動しました"
                    when 'copy'
-                     "#{self.path} has copied to #{self.destination_path}."
+                     "#{self.path} が #{self.destination_path} に複製されました"
                    end
   end
 end

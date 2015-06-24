@@ -22,12 +22,9 @@ $(document).ready ->
           location.reload()
         return
 
-  $("[data-role=directory-command]").on "click", ->
+  $("[data-role=modal-launcher]").on "click", ->
     $("#js-tree").data("source-id", $(this).data("id"))
 
-  $("[data-id=dir-move-btn]").on "click", ->
-    ajaxPost($(this).data("url"))
-
-  $("[data-id=dir-copy-btn]").on "click", ->
+  $("[data-role=post-btn]").on "click", ->
     ajaxPost($(this).data("url"))
 return

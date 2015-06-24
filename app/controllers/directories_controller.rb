@@ -1,5 +1,5 @@
 class DirectoriesController < ApplicationController
-  before_action :set_directory, only: %i(show edit update destroy update move copy share)
+  before_action :set_directory, only: %i(show edit update destroy update move copy share tree)
   before_action :set_parent_directory, only: %i(new create)
   before_action :set_destination_directory, only: %i(update move copy)
 
@@ -60,6 +60,12 @@ class DirectoriesController < ApplicationController
   def share
   end
 
+  def tree
+    respond_to do |format|
+      format.html { render partial: 'tree_item', locals: { directories: @directory.children } }
+    end
+  end
+
   private
 
   def set_directory
@@ -80,12 +86,14 @@ class DirectoriesController < ApplicationController
   end
 
   def save_event_log
-    event                  = current_user.events.new
-    event.directory_id     = @directory.id
-    event.request          = request
-    event.action           = params[:action]
-    event.path             = @directory.pathname.present? ? @directory.pathname : @destroyed_path
-    event.destination_path = @destination_directory.pathname if %w(update move copy).include?(params[:action])
-    event.save!
+    if @directory.valid?
+      event                  = current_user.events.new
+      event.directory_id     = @directory.id
+      event.request          = request
+      event.action           = params[:action]
+      event.path             = @directory.pathname.present? ? @directory.pathname : @destroyed_path
+      event.destination_path = @destination_directory.pathname if %w(update move copy).include?(params[:action])
+      event.save!
+    end
   end
 end

@@ -32,12 +32,22 @@ class Directory < ActiveRecord::Base
   end
 
   def copy(destination)
-    destination.user.directories.create(name: self.name, parent: destination)
+    new_parent = destination.user.directories.create(name: self.name, parent: destination)
+    copy_fileitems(new_parent)
+    self.children.each do |child|
+      child.copy(new_parent)
+    end
   end
 
   private
 
   def destroy_children
     children.each { |dir| dir.destroy }
+  end
+
+  def copy_fileitems(destination)
+    self.files.each do |source_file|
+      destination.files.create(name: source_file.name, bindata: source_file.bindata)
+    end
   end
 end

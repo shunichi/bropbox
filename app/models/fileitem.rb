@@ -12,6 +12,7 @@
 
 class Fileitem < ActiveRecord::Base
   belongs_to :directory
+  has_one :user, through: :directory
 
   has_many :events
 
@@ -20,5 +21,13 @@ class Fileitem < ActiveRecord::Base
 
   def pathname
     "#{self.directory.pathname}/#{self.name}"
+  end
+
+  def move(destination_directory)
+    self.update(directory_id: destination_directory.id)
+  end
+
+  def copy(destination_directory)
+    destination_directory.files.create(name: self.name, bindata: self.bindata)
   end
 end

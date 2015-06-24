@@ -1,0 +1,4 @@
+- directories.each do |dir|
+  %li.tree-item{data: {id: dir.id, depth: dir.depth}}
+    %span.glyphicon.glyphicon-folder-open
+      = dir.name

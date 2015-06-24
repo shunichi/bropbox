@@ -4,15 +4,12 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :directories, only: %i(show new create edit update destroy) do
-    resources :fileitems, only: %i(show new create edit update destroy) do
-      member do
-        get :download
-      end
-    end
+    resources :fileitems, only: %i(show new create edit update destroy)
   end
 
   resource :directory do
     collection do
+      get :tree
       post :move, :copy, :share
     end
   end

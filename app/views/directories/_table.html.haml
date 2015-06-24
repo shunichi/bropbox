@@ -1,10 +1,11 @@
 = render 'modal', kind: 'directory'
+= render 'modal', kind: 'file'
 
 %table.table.table-responsive
   - @directory.children.each do |dir|
     %tr
       %td
-        %span.glyphicon.glyphicon-folder-close
+        %span.glyphicon.glyphicon-folder-open
           %strong= link_to dir.name, [dir]
       %td
         .text-right
@@ -12,9 +13,9 @@
             %li
               = link_to 'Rename', [:edit, dir]
             %li
-              = link_to 'Move', '#', {data: {id: dir.id, toggle: 'modal', target: '#js-modal-directory', role: 'directory-command'}}
+              = link_to 'Move', '#', {data: {id: dir.id, toggle: 'modal', target: '#js-modal-directory', role: 'modal-launcher'}}
             %li
-              = link_to 'Copy', '#', {data: {id: dir.id, toggle: 'modal', target: '#js-modal-directory', role: 'directory-command'}}
+              = link_to 'Copy', '#', {data: {id: dir.id, toggle: 'modal', target: '#js-modal-directory', role: 'modal-launcher'}}
             %li
               = link_to 'Delete', [dir], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
   - @directory.files.each do |file|
@@ -26,7 +27,11 @@
         .text-right
           %ul.list-inline
             %li
-              = link_to [:download, file.directory, file] do
-                %span.glyphicon.glyphicon-download-alt
-                  %strong Download
+              = link_to 'Rename', [:edit, file.directory, file]
+            %li
+              = link_to 'Move', '#', {data: {id: file.id, toggle: 'modal', target: '#js-modal-file', role: 'modal-launcher'}}
+            %li
+              = link_to 'Copy', '#', {data: {id: file.id, toggle: 'modal', target: '#js-modal-file', role: 'modal-launcher'}}
+            %li
+              = link_to 'Delete', [file.directory, file], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
 
