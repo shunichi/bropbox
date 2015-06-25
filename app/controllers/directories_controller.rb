@@ -1,9 +1,9 @@
 class DirectoriesController < ApplicationController
-  before_action :set_directory, only: %i(show edit update destroy update move copy share tree)
+  before_action :set_directory, only: %i(show edit update destroy update move copy tree)
   before_action :set_parent_directory, only: %i(new create)
   before_action :set_destination_directory, only: %i(update move copy)
 
-  after_action :save_event_log, only: %i(create update destroy move copy share)
+  after_action :save_event_log, only: %i(create update destroy move copy)
 
   def show
   end
@@ -55,9 +55,6 @@ class DirectoriesController < ApplicationController
     respond_to do |format|
       format.json
     end
-  end
-
-  def share
   end
 
   def tree

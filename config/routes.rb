@@ -10,13 +10,13 @@ Rails.application.routes.draw do
   resource :directory do
     collection do
       get :tree
-      post :move, :copy, :share
+      post :move, :copy
     end
   end
 
   resource :fileitem do
     collection do
-      post :move, :copy, :share
+      post :move, :copy
     end
   end
 
