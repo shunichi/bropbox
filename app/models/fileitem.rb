@@ -19,6 +19,10 @@ class Fileitem < ActiveRecord::Base
   validates :directory_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :name, presence: true, length: { maximum: 255 }
 
+  scope :match, ->(q) {
+    where{(name.like "%#{q}%")}
+  }
+
   def pathname
     "#{self.directory.pathname}/#{self.name}"
   end

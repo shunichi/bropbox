@@ -21,4 +21,10 @@ Rails.application.routes.draw do
   end
 
   resources :events, only: %i(index)
+
+  resources :items, only: %i(index) do
+    collection do
+      get :search
+    end
+  end
 end

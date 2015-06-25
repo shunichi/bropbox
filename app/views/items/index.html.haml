@@ -1,0 +1,38 @@
+%h1
+  %i.fa.fa-search
+  検索
+
+%hr
+
+= form_tag([:search, :items], method: :get, class: 'form-horizontal') do
+  .input-group
+    = text_field_tag 'q', params[:q], class: 'form-control'
+    %span.input-group-btn
+      = submit_tag '検索', class: 'btn btn-default'
+
+%hr.invisible
+
+- if params[:q].present?
+  - if @directories.empty? && @files.empty?
+    .text-muted
+      見つかりませんでした
+  - else
+    .text-info
+      = @directories.count + @files.count
+      件 見つかりました
+    %hr.invisible
+    %table.table.table-responsive
+      - @directories.each do |directory|
+        %tr
+          %td
+            %span.glyphicon.glyphicon-folder-close
+              = link_to directory.name, [directory]
+          %td
+            = directory.pathname
+      - @files.each do |file|
+        %tr
+          %td
+            %span.glyphicon.glyphicon-file
+              = link_to file.name, [file.directory, file]
+          %td
+            = file.pathname

@@ -18,7 +18,6 @@
           = link_to 'Bropbox', root_path, class: 'navbar-brand'
         #collapsed-nav.collapse.navbar-collapse
           %ul.nav.navbar-nav.navbar-right
-            %li
             - if user_signed_in?
               %li.dropdown
                 %a.dropdown-toggle{aria: {expanded: 'false'}, data: {toggle: 'dropdown'}, href: '#', role: 'button'}
@@ -29,6 +28,9 @@
                   %li
                     = link_to [current_user.root_directory] do
                       %span.glyphicon.glyphicon-home
+                  %li
+                    = link_to [:items] do
+                      検索
                   %li
                     = link_to '#' do
                       共有アイテム

@@ -11,6 +11,8 @@
 #
 
 class Directory < ActiveRecord::Base
+  has_ancestry
+
   belongs_to :user
 
   has_many :files, class_name: 'Fileitem', dependent: :destroy
@@ -21,7 +23,9 @@ class Directory < ActiveRecord::Base
 
   after_destroy :destroy_children
 
-  has_ancestry
+  scope :match, ->(q) {
+    where{(name.like "%#{q}%")}
+  }
 
   def pathname
     path.each.inject([]) { |arr, dir| arr<<dir.name.gsub('/', '') }.join('/')
