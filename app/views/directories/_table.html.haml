@@ -11,13 +11,15 @@
         .text-right
           %ul.list-inline
             %li
-              = link_to 'Rename', [:edit, dir]
+              = link_to '名前を変更', [:edit, dir]
             %li
-              = link_to 'Move', '#', {data: {id: dir.id, toggle: 'modal', target: '#js-modal-directory', role: 'modal-launcher'}}
+              = link_to '移動', '#', {data: {id: dir.id, toggle: 'modal', target: '#js-modal-directory', role: 'modal-launcher'}}
             %li
-              = link_to 'Copy', '#', {data: {id: dir.id, toggle: 'modal', target: '#js-modal-directory', role: 'modal-launcher'}}
+              = link_to '複製', '#', {data: {id: dir.id, toggle: 'modal', target: '#js-modal-directory', role: 'modal-launcher'}}
             %li
-              = link_to 'Delete', [dir], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
+              = link_to '削除', [dir], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
+            %li
+              = link_to '共有設定', [:my, dir, :shared_directories], class: 'label label-primary'
   - @directory.files.each do |file|
     %tr
       %td
@@ -27,11 +29,11 @@
         .text-right
           %ul.list-inline
             %li
-              = link_to 'Rename', [:edit, file.directory, file]
+              = link_to '名前を変更', [:edit, file.directory, file]
             %li
-              = link_to 'Move', '#', {data: {id: file.id, toggle: 'modal', target: '#js-modal-file', role: 'modal-launcher'}}
+              = link_to '移動', '#', {data: {id: file.id, toggle: 'modal', target: '#js-modal-file', role: 'modal-launcher'}}
             %li
-              = link_to 'Copy', '#', {data: {id: file.id, toggle: 'modal', target: '#js-modal-file', role: 'modal-launcher'}}
+              = link_to '複製', '#', {data: {id: file.id, toggle: 'modal', target: '#js-modal-file', role: 'modal-launcher'}}
             %li
-              = link_to 'Delete', [file.directory, file], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
+              = link_to '削除', [file.directory, file], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
 

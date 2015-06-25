@@ -17,6 +17,7 @@ class Directory < ActiveRecord::Base
 
   has_many :files, class_name: 'Fileitem', dependent: :destroy
   has_many :events
+  has_many :shared_directories
 
   validates :user_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :name, presence: true, length: { maximum: 255 }
@@ -24,7 +25,7 @@ class Directory < ActiveRecord::Base
   after_destroy :destroy_children
 
   scope :match, ->(q) {
-    where{(name.like "%#{q}%")}
+    where { (name.like "%#{q}%") }
   }
 
   def pathname
@@ -41,6 +42,15 @@ class Directory < ActiveRecord::Base
     self.children.each do |child|
       child.copy(new_parent)
     end
+  end
+
+  def share_for(user)
+    self.shared_directories.create(user_id: user.id)
+  end
+
+  def shared_for?(user)
+    dir = user.shared_directories
+    dir.find_by(directory_id: self.id).present? || dir.where(directory_id: self.ancestor_ids).present?
   end
 
   private

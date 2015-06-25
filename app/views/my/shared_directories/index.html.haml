@@ -1,0 +1,22 @@
+%h1
+  = @directory.name
+  の共有設定
+
+%hr
+
+= link_to '新規共有設定', [:new, :my, @directory, :shared_directory], class: 'btn btn-primary'
+
+%hr
+
+- if @shared_directories.empty?
+  .text-muted
+    このフォルダは他の誰とも共有されていません
+- else
+  %ul.list-unstyled
+    - @shared_directories.each do |shared_directory|
+      %li
+        %ul.list-inline
+          %li
+            = link_to '共有解除', [:my, shared_directory.directory, shared_directory], class: 'btn btn-danger', method: :delete
+          %li
+            = shared_directory.user.email

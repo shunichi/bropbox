@@ -27,4 +27,10 @@ Rails.application.routes.draw do
       get :search
     end
   end
+
+  namespace :my do
+    resources :directories, only: %i() do
+      resources :shared_directories, only: %i(index new create destroy)
+    end
+  end
 end

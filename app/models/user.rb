@@ -18,16 +18,21 @@
 #
 
 class User < ActiveRecord::Base
-  has_many :directories
-  has_many :events
-  has_many :files, class_name: 'Fileitem', through: :directories
-
-  after_create :create_root_directory
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  has_many :directories
+  has_many :events
+  has_many :files, class_name: 'Fileitem', through: :directories
+  has_many :shared_directories
+
+  after_create :create_root_directory
+
+  scope :others, ->(my_id) {
+    where { (id.not_eq my_id) }
+  }
 
   def root_directory
     directories.roots.first
