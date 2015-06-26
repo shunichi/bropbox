@@ -1,0 +1,15 @@
+%h1
+  = @file.name
+  を共有する
+
+%hr
+
+= simple_form_for(@shared_file, url: [:my, @file, :shared_files]) do |f|
+  - if f.object.errors.present?
+    .alert.alert-danger
+      %ul
+        - f.object.errors.full_messages.each do |error_message|
+          %li
+            = error_message
+  = f.association :user, collection: User.others(current_user.id), label_method: :email, as: :radio_buttons, label: '共有したいユーザーを選択して下さい'
+  = f.submit '共有', class: 'btn btn-primary'

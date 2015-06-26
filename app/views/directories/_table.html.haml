@@ -36,4 +36,5 @@
               = link_to '複製', '#', {data: {id: file.id, toggle: 'modal', target: '#js-modal-file', role: 'modal-launcher'}}
             %li
               = link_to '削除', [file.directory, file], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
-
+            %li
+              = link_to '共有設定', [:my, file, :shared_files], class: 'label label-primary'

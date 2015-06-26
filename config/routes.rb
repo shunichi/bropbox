@@ -36,5 +36,8 @@ Rails.application.routes.draw do
     resources :directories, only: %i() do
       resources :shared_directories, only: %i(index new create destroy)
     end
+    resources :fileitems, only: %i() do
+      resources :shared_files, only: %i(index new create destroy)
+    end
   end
 end
