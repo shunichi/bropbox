@@ -14,6 +14,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :shared_directories, only: %i(index) do
+    resources :shared_sub_directories, only: %i(show)
+  end
+
   resource :fileitem do
     collection do
       post :move, :copy

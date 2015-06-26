@@ -1,2 +1,19 @@
-%h1 SharedDirectories#index
-%p Find me in app/views/shared_directories/index.html.haml
+%h1
+  共有フォルダ 一覧
+
+%hr.invisible
+
+- if @shared_directories.empty?
+  .text-muted
+    共有アイテムが存在しません
+- else
+  %table.table.table-responsive
+    %thead
+      %tr
+        %th フォルダ名
+        %th 所有者
+    - @shared_directories.each do |shared_directory|
+      %tr
+        %td= link_to shared_directory.directory.name,
+          shared_directory_shared_sub_directory_path(shared_directory.directory, shared_directory_id: shared_directory.id)
+        %td= shared_directory.owner.email

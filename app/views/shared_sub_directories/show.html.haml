@@ -1,0 +1,23 @@
+%h1
+  = @directory.name
+
+%h2
+  所有者 :
+  = @directory.user.email
+
+%hr.invisible
+
+-# TODO: breadcrumb
+
+- if @directory.children.empty? && @directory.files.empty?
+  .text-muted
+    データが存在しません
+- else
+  %table.table.table-responsive
+    - @directory.children.each do |child_directory|
+      %tr
+        %td= link_to child_directory.name,
+          shared_directory_shared_sub_directory_path(child_directory, shared_directory_id: @root_directory)
+    - @directory.files.each do |file|
+      %tr
+        %td= link_to file.name, '#'
