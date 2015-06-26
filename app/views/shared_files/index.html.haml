@@ -1,0 +1,18 @@
+%h1
+  共有ファイル 一覧
+
+%hr.invisible
+
+- if @shared_files.empty?
+  .text-muted
+    共有アイテムが存在しません
+- else
+  %table.table.table-responsive
+    %thead
+      %tr
+        %th フォルダ名
+        %th 所有者
+    - @shared_files.each do |shared_file|
+      %tr
+        %td= link_to shared_file.fileitem.name, [shared_file]
+        %td= shared_file.owner.email
