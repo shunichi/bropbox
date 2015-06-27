@@ -10,21 +10,10 @@
 #
 
 class PublicateFile < ActiveRecord::Base
-  attr_accessor :email
+  include PublicItem
 
   belongs_to :fileitem
 
   validates :fileitem_id, presence: true
-  validates :access_token, presence: true
-  validates :email, presence: true
   validates_uniqueness_of :fileitem_id
-
-  before_validation :set_access_token
-
-  private
-
-  #TODO: DRY PublicateDirectory#set_access_token と重複
-  def set_access_token
-    self.access_token = SecureRandom.base64(20)
-  end
 end

@@ -10,20 +10,10 @@
 #
 
 class PublicateDirectory < ActiveRecord::Base
-  attr_accessor :email
+  include PublicItem
 
   belongs_to :directory
 
   validates :directory_id, presence: true
-  validates :access_token, presence: true
-  validates :email, presence: true
   validates_uniqueness_of :directory_id
-
-  before_validation :set_access_token
-
-  private
-
-  def set_access_token
-    self.access_token = SecureRandom.base64(20)
-  end
 end
