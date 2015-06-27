@@ -47,7 +47,7 @@ class Event < ActiveRecord::Base
   def set_message
     self.message = case self.action
                    when 'create'
-                     "#{self.path} 作られました"
+                     "#{self.path} が作られました"
                    when 'update'
                      "#{self.path} の名前が #{self.destination_path} に変更されました"
                    when 'destroy'
