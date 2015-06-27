@@ -1,28 +1,29 @@
 # == Schema Information
 #
-# Table name: publicate_directories
+# Table name: publicate_files
 #
 #  id           :integer          not null, primary key
-#  directory_id :integer
+#  fileitem_id  :integer
 #  access_token :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
 
-class PublicateDirectory < ActiveRecord::Base
+class PublicateFile < ActiveRecord::Base
   attr_accessor :email
 
-  belongs_to :directory
+  belongs_to :fileitem
 
-  validates :directory_id, presence: true
+  validates :fileitem_id, presence: true
   validates :access_token, presence: true
   validates :email, presence: true
-  validates_uniqueness_of :directory_id
+  validates_uniqueness_of :fileitem_id
 
   before_validation :set_access_token
 
   private
 
+  #TODO: DRY PublicateDirectory#set_access_token と重複
   def set_access_token
     self.access_token = SecureRandom.base64(20)
   end

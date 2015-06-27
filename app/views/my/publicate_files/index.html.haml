@@ -1,0 +1,19 @@
+%h1
+  = @file.name
+  の公開設定
+
+%hr
+
+- if @publicate_files.empty?
+  .text-info
+    このファイルの公開リンクは発行されていません.
+  %hr.invisible
+  = link_to '公開リンクを発行', [:new, :my, @file, :publicate_file], class: 'btn btn-primary'
+- else
+  .text-info
+    このファイルは、以下の URL で公開設定されています.
+  %hr.invisible
+  .alert.alert-success
+    %strong= public_file_url(@publicate_files.first, access_token: @publicate_files.first.access_token)
+  %hr.invisible
+  = link_to '共有リンクを削除', [:my, @file, @publicate_files.first], method: :delete, class: 'btn btn-danger'

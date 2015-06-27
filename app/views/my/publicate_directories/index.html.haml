@@ -14,6 +14,6 @@
     このフォルダは、以下の URL で公開設定されています.
   %hr.invisible
   .alert.alert-success
-    %strong= publicate_directory_full_url(@publicate_directories.first)
+    %strong= public_directory_url(@publicate_directories.first, access_token: @publicate_directories.first.access_token)
   %hr.invisible
   = link_to '共有リンクを削除', [:my, @directory, @publicate_directories.first], method: :delete, class: 'btn btn-danger'

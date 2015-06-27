@@ -14,8 +14,8 @@ class My::PublicateDirectoriesController < ApplicationController
     @publicate_directory = @directory.publicate_directories.build(publicate_directory_params)
     respond_to do |format|
       if @publicate_directory.save
-        LinkMailer.send_mail(@publicate_directory.email, publicate_directory_full_url(@publicate_directory), current_user).deliver
-        format.html { redirect_to [:my, @directory, :publicate_directories], notice: '共有しました' }
+        LinkMailer.send_mail(@publicate_directory.email, public_directory_url(@publicate_directory, access_token: @publicate_directory.access_token), current_user).deliver
+        format.html { redirect_to [:my, @directory, :publicate_directories], notice: '公開しました' }
       else
         format.html { render 'new' }
       end
@@ -24,7 +24,7 @@ class My::PublicateDirectoriesController < ApplicationController
 
   def destroy
     @publicate_directory.destroy
-    redirect_to [:my, @directory, :publicate_directories], notice: '共有を解除しました'
+    redirect_to [:my, @directory, :publicate_directories], notice: '公開を解除しました'
   end
 
   private

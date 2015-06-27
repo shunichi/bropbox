@@ -16,6 +16,7 @@ class Fileitem < ActiveRecord::Base
 
   has_many :events
   has_many :shared_files
+  has_many :publicate_files
 
   validates :directory_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :name, presence: true, length: { maximum: 255 }

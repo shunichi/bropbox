@@ -4,10 +4,4 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!
-
-  helper_method :publicate_directory_full_url
-
-  def publicate_directory_full_url(publicate_directory)
-    "#{polymorphic_url([publicate_directory])}?access_token=#{publicate_directory.access_token}"
-  end
 end

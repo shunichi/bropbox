@@ -8,9 +8,6 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :directories, only: %i(show new create edit update destroy) do
-    member do
-      post :publicate
-    end
     resources :fileitems, only: %i(show new create edit update destroy)
   end
 
@@ -48,11 +45,13 @@ Rails.application.routes.draw do
     end
     resources :fileitems, only: %i() do
       resources :shared_files, only: %i(index new create destroy)
+      resources :publicate_files, only: %i(index new create destroy)
     end
   end
 
   namespace :public do
-    get '/directory/:id/:access_token', to: 'directories#show', as: 'directory'
-    get '/sub_directory/:id', to: 'sub_directories#show', as: 'sub_directory'
+    get '/directories/:id/:access_token', to: 'directories#show', as: 'directory'
+    get '/sub_directories/:id', to: 'sub_directories#show', as: 'sub_directory'
+    get '/files/:id/:access_token', to: 'files#show', as: 'file'
   end
 end
