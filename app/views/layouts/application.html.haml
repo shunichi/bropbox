@@ -15,7 +15,9 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          = link_to 'Bropbox', root_path, class: 'navbar-brand'
+          = link_to root_path, class: 'navbar-brand' do
+            %i.fa.fa-dropbox
+            Bropbox
         #collapsed-nav.collapse.navbar-collapse
           %ul.nav.navbar-nav.navbar-right
             - if user_signed_in?
