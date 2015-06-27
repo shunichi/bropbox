@@ -18,6 +18,7 @@ class Directory < ActiveRecord::Base
   has_many :files, class_name: 'Fileitem', dependent: :destroy
   has_many :events
   has_many :shared_directories
+  has_many :publicate_directories
 
   validates :user_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :name, presence: true, length: { maximum: 255 }
@@ -51,6 +52,10 @@ class Directory < ActiveRecord::Base
   def shared_for?(user)
     dir = user.shared_directories
     dir.find_by(directory_id: self.id).present? || dir.where(directory_id: self.ancestor_ids).present?
+  end
+
+  def publicate_for(email)
+    self.publicate_directories.create(email: email)
   end
 
   private

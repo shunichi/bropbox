@@ -20,6 +20,8 @@
               = link_to '削除', [dir], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
             %li
               = link_to '共有設定', [:my, dir, :shared_directories], class: 'label label-primary'
+            %li
+              = link_to '公開リンク送信', [:my, dir, :publicate_directories], class: 'label label-success'
   - @directory.files.each do |file|
     %tr
       %td
@@ -38,3 +40,5 @@
               = link_to '削除', [file.directory, file], class: 'label label-danger', method: :delete, data: {confirm: '削除しますか ?'}
             %li
               = link_to '共有設定', [:my, file, :shared_files], class: 'label label-primary'
+            %li
+              = link_to '公開リンク送信', '#', class: 'label label-success'

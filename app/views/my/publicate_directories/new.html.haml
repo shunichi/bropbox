@@ -1,0 +1,9 @@
+%h1
+  = @directory.name
+  の公開リンクを発行
+
+%hr
+
+= simple_form_for(@publicate_directory, url: [:my, @directory, :publicate_directories]) do |f|
+  = f.input :email, label: '公開リンクを送信する Email アドレスを入力して下さい'
+  = f.submit '公開リンクを発行', class: 'btn btn-primary'

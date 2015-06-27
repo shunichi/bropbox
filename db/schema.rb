@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150622125642) do
+ActiveRecord::Schema.define(version: 20150626051753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,15 @@ ActiveRecord::Schema.define(version: 20150622125642) do
   end
 
   add_index "fileitems", ["directory_id"], name: "index_fileitems_on_directory_id", using: :btree
+
+  create_table "publicate_directories", force: :cascade do |t|
+    t.integer  "directory_id"
+    t.string   "access_token", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "publicate_directories", ["directory_id"], name: "index_publicate_directories_on_directory_id", using: :btree
 
   create_table "shared_directories", force: :cascade do |t|
     t.integer  "directory_id", null: false
@@ -93,6 +102,7 @@ ActiveRecord::Schema.define(version: 20150622125642) do
   add_foreign_key "directories", "users"
   add_foreign_key "events", "users"
   add_foreign_key "fileitems", "directories"
+  add_foreign_key "publicate_directories", "directories"
   add_foreign_key "shared_directories", "directories"
   add_foreign_key "shared_directories", "users"
   add_foreign_key "shared_files", "fileitems"

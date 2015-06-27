@@ -1,0 +1,19 @@
+%h1
+  = @directory.name
+  の公開設定
+
+%hr
+
+- if @publicate_directories.empty?
+  .text-info
+    このフォルダの公開リンクは発行されていません.
+  %hr.invisible
+  = link_to '公開リンクを発行', [:new, :my, @directory, :publicate_directory], class: 'btn btn-primary'
+- else
+  .text-info
+    このフォルダは、以下の URL で公開設定されています.
+  %hr.invisible
+  .alert.alert-success
+    %strong= publicate_directory_full_url(@publicate_directories.first)
+  %hr.invisible
+  = link_to '共有リンクを削除', [:my, @directory, @publicate_directories.first], method: :delete, class: 'btn btn-danger'

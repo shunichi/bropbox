@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :directories, only: %i(show new create edit update destroy) do
+    member do
+      post :publicate
+    end
     resources :fileitems, only: %i(show new create edit update destroy)
   end
 
@@ -16,6 +19,10 @@ Rails.application.routes.draw do
 
   resources :shared_directories, only: %i(index) do
     resources :shared_sub_directories, only: %i(show)
+  end
+
+  resource :publicate_directories, only: %i(show) do
+    resources :publicate_sub_directories, only: %i(show)
   end
 
   resources :shared_files, only: %i(index show)
@@ -37,6 +44,7 @@ Rails.application.routes.draw do
   namespace :my do
     resources :directories, only: %i() do
       resources :shared_directories, only: %i(index new create destroy)
+      resources :publicate_directories, only: %i(index new create destroy)
     end
     resources :fileitems, only: %i() do
       resources :shared_files, only: %i(index new create destroy)
