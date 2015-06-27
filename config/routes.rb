@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  namespace :public do
-  get 'sub_directories/show'
-  end
-
   root to: 'home#index'
 
   devise_for :users
