@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :public do
+  get 'sub_directories/show'
+  end
+
   root to: 'home#index'
 
   devise_for :users
@@ -19,10 +23,6 @@ Rails.application.routes.draw do
 
   resources :shared_directories, only: %i(index) do
     resources :shared_sub_directories, only: %i(show)
-  end
-
-  resource :publicate_directories, only: %i(show) do
-    resources :publicate_sub_directories, only: %i(show)
   end
 
   resources :shared_files, only: %i(index show)
@@ -49,5 +49,10 @@ Rails.application.routes.draw do
     resources :fileitems, only: %i() do
       resources :shared_files, only: %i(index new create destroy)
     end
+  end
+
+  namespace :public do
+    get '/directory/:id/:access_token', to: 'directories#show', as: 'directory'
+    get '/sub_directory/:id', to: 'sub_directories#show', as: 'sub_directory'
   end
 end

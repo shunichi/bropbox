@@ -8,6 +8,6 @@ class ApplicationController < ActionController::Base
   helper_method :publicate_directory_full_url
 
   def publicate_directory_full_url(publicate_directory)
-    "#{polymorphic_url([publicate_directory])}/#{publicate_directory.access_token}"
+    "#{polymorphic_url([publicate_directory])}?access_token=#{publicate_directory.access_token}"
   end
 end
