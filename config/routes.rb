@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   namespace :public do
     get '/directories/:id/:access_token', to: 'directories#show', as: 'directory'
     get '/sub_directories/:id', to: 'sub_directories#show', as: 'sub_directory'
+    get '/sub_directories/:id/download/:file_id', to: 'sub_directories#download', as: 'download_sub_directory_file'
     get '/files/:id/:access_token', to: 'files#show', as: 'file'
   end
 end

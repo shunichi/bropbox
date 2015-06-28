@@ -18,4 +18,4 @@
       %tr
         %td
           %span.glyphicon.glyphicon-file
-            = link_to file.name, '#'
+            = link_to file.name, public_download_sub_directory_file_path(@directory, file_id: file.id)
