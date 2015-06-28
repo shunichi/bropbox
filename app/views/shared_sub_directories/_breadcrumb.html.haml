@@ -1,0 +1,16 @@
+%ol.breadcrumb
+  %li
+    = link_to [:shared_directories] do
+      %span.glyphicon.glyphicon-home
+  - if root_directory.id == current_directory.id
+    %li.active
+      = root_directory.name
+  - else
+    - root_directory.subtree.each do |dir|
+      - if dir.id == current_directory.id
+        %li.active
+          = dir.name
+          - break
+      - else
+        %li
+          = link_to dir.name, shared_directory_shared_sub_directory_path(dir, shared_directory_id: root_directory)

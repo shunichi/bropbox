@@ -12,6 +12,12 @@ class SharedFilesController < ApplicationController
   private
 
   def set_file
-    @file = current_user.shared_files.find(params[:id]).fileitem
+    if params[:shared_directory_id]
+      shared_root_directory = SharedDirectory.find(params[:shared_directory_id])
+      shared_directory = shared_root_directory.directory.subtree.find(params[:shared_sub_directory_id])
+      @file = shared_directory.files.find(params[:id])
+    else
+      @file = current_user.shared_files.find(params[:id]).fileitem
+    end
   end
 end

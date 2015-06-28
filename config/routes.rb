@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   end
 
   resources :shared_directories, only: %i(index) do
-    resources :shared_sub_directories, only: %i(show)
+    resources :shared_sub_directories, only: %i(show) do
+      resources :shared_files, only: %i(show)
+    end
   end
 
   resources :shared_files, only: %i(index show)
