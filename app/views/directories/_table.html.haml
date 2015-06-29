@@ -2,11 +2,25 @@
 = render 'modal', kind: 'file'
 
 %table.table.table-responsive
+  %tr
+    %th
+      名前
+    %th
+      共有
+    %th
+      公開
+    %th
   - @directory.children.each do |dir|
     %tr
       %td
         %span.glyphicon.glyphicon-folder-open
           %strong= link_to dir.name, [dir]
+      %td
+        - if dir.shared_directories.present?
+          %span.glyphicon.glyphicon-ok
+      %td
+        - if dir.publicate_directories.present?
+          %span.glyphicon.glyphicon-ok
       %td
         .text-right
           %ul.list-inline
@@ -27,6 +41,12 @@
       %td
         %span.glyphicon.glyphicon-file
           %strong= link_to file.name, [file.directory, file]
+      %td
+        - if file.shared_files.present?
+          %span.glyphicon.glyphicon-ok
+      %td
+        - if file.publicate_files.present?
+          %span.glyphicon.glyphicon-ok
       %td
         .text-right
           %ul.list-inline
