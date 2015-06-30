@@ -43,12 +43,14 @@ group :development, :test do
   gem 'database_rewinder'
   gem 'factory_girl_rails', '~> 4.5'
   gem 'faker'
+  gem 'pry-rails'
   gem 'rspec-rails'
 end
 
 group :test do
   gem 'database_cleaner'
   gem 'launchy'
+  gem 'selenium-webdriver'
 end
 
 group :production do

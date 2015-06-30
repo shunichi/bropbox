@@ -1,6 +1,6 @@
 %ul.list-inline
   %li
-    = link_to [:new, :directory, parent_id: @directory.id], class: 'btn btn-primary' do
+    = link_to [:new, :directory, parent_id: @directory.id], class: 'btn btn-primary', id: 'btn-new-folder' do
       %span.glyphicon.glyphicon-plus
       %span.glyphicon.glyphicon-folder-close
       新規フォルダ

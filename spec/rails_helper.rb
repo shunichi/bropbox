@@ -29,3 +29,5 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include FeatureHelper, type: :feature
 end
+
+Capybara.default_driver = :selenium
