@@ -1,0 +1,27 @@
+ja:
+  activerecord:
+    models:
+      user: 'ユーザー'
+      directory: 'フォルダ'
+      fileitem: 'ファイル'
+      event: '操作履歴'
+    attributes:
+      directory:
+        name: 'フォルダ名'
+      fileitem:
+        name: 'ファイル名'
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: 'Email アドレスが入力されていません'
+            password:
+              blank: 'Password が入力されていません'
+            password_confirmation:
+              confirmation: 'Password が一致しません'
+        directory:
+          attributes:
+            name:
+              blank: 'フォルダ名が入力されていません'
+
