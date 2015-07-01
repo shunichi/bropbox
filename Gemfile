@@ -31,7 +31,6 @@ group :development do
   gem 'hirb-unicode'
   gem 'meta_request'
   gem 'pry-byebug'
-  gem 'pry-rails'
   gem 'quiet_assets'
   gem 'spring'
   gem 'spring-commands-rspec'
