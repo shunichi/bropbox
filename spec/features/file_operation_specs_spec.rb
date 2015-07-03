@@ -24,10 +24,7 @@ RSpec.feature 'ファイル 制御', type: :feature do
     given(:new_filename) { 'foo' }
 
     before do
-      # upload_file_to_root_directory(user)
-      visit polymorphic_path([:new, user.root_directory, :fileitem])
-      attach_file 'fileitem[bindata]', create_dummy_file
-      find('[name=commit]').click
+      upload_file_to_root_directory(user)
     end
 
     subject do
