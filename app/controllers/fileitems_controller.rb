@@ -33,6 +33,7 @@ class FileitemsController < ApplicationController
   def update
     respond_to do |format|
       if @file.update(file_params)
+        @destination_path = @file.pathname
         format.html { redirect_to [@file.directory], notice: 'ファイル名を変更しました' }
       else
         format.html { render 'edit' }
