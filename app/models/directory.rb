@@ -17,8 +17,8 @@ class Directory < ActiveRecord::Base
 
   has_many :files, class_name: 'Fileitem', dependent: :destroy
   has_many :events
-  has_many :shared_directories
-  has_many :publicate_directories
+  has_many :shared_directories, dependent: :destroy
+  has_many :publicate_directories, dependent: :destroy
 
   validates :user_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :name, presence: true, length: { maximum: 255 }
