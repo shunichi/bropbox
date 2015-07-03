@@ -30,6 +30,8 @@ class DirectoriesController < ApplicationController
   def update
     respond_to do |format|
       if @directory.update(directory_params)
+        @source_path = @directory.pathname
+        @destination_directory = @directory
         format.html { redirect_to [@directory.parent], notice: 'フォルダ名を変更しました' }
       else
         format.html { render 'edit' }
@@ -38,7 +40,7 @@ class DirectoriesController < ApplicationController
   end
 
   def destroy
-    @destroyed_path = @directory.pathname
+    @source_path = @directory.pathname
     @directory.destroy
     redirect_to [@directory.parent], notice: "#{@directory.name} を削除しました"
   end
@@ -59,7 +61,7 @@ class DirectoriesController < ApplicationController
 
   def tree
     respond_to do |format|
-      format.html { render partial: 'tree_item', locals: { directories: @directory.children } }
+      format.html { render partial: 'tree_item', locals: {directories: @directory.children} }
     end
   end
 
@@ -88,7 +90,7 @@ class DirectoriesController < ApplicationController
       event.directory_id     = @directory.id
       event.request          = request
       event.action           = params[:action]
-      event.path             = @directory.pathname.present? ? @directory.pathname : @destroyed_path
+      event.path             = @directory.pathname.present? ? @directory.pathname : @source_path
       event.destination_path = @destination_directory.pathname if %w(update move copy).include?(params[:action])
       event.save!
     end
