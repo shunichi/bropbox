@@ -11,6 +11,7 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.example_status_persistence_file_path = "#{::Rails.root}/spec/example"
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
 
