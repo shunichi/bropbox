@@ -35,6 +35,8 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'letter_opener'
+  gem 'bullet'
+  gem 'haml-lint'
 end
 
 group :development, :test do
