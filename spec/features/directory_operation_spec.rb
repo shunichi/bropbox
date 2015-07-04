@@ -84,14 +84,44 @@ RSpec.feature 'フォルダ 制御', type: :feature do
     scenario 'イベントログが記録される' do
       visit root_path
       expect(page).not_to have_selector('#js-modal-directory')
-      page.save_screenshot '/tmp/ss.png'
       expect {
-        click_link '移動'
+        all('.link-move-directory').first.click
         expect(page).to have_selector('#js-modal-directory')
-        click_link @dirname_2
-        click_link 'Move'
-        expect(page).to have_selector('.alert-success')
+        all('.tree-item').last.trigger('click')
+        find(:link, 'Move').trigger('click')
+        sleep 1
       }.to change(Event, :count).by(1)
+    end
+  end
+
+  feature '複製', js: true do
+    before do
+      @dirname_1 = 'dirname_1'
+      @dirname_2 = 'dirname_2'
+      @subdirname_1 = 'sub1'
+      @subdirname_2 = 'sub2'
+      d1 = create(:directory, name: @dirname_1, user_id: User.first.id, parent_id: User.first.root_directory.id)
+      d2 = create(:directory, name: @dirname_2, user_id: User.first.id, parent_id: User.first.root_directory.id)
+      create(:directory, name: @subdirname_1, user_id: User.first.id, parent_id: d1.id)
+      create(:directory, name: @subdirname_2, user_id: User.first.id, parent_id: d2.id)
+    end
+
+    subject do
+      visit root_path
+      expect(page).not_to have_selector('#js-modal-directory')
+      all('.link-move-directory').first.click
+      expect(page).to have_selector('#js-modal-directory')
+      all('.tree-item').last.trigger('click')
+      find(:link, 'Copy').trigger('click')
+      sleep 1
+    end
+
+    scenario '複製したフォルダとそこに含まれるフォルダの数と同じだけ Directory モデルの件数が増える' do
+      expect { subject }.to change(Directory, :count).by(2)
+    end
+
+    scenario 'イベントログが記録される' do
+      expect { subject }.to change(Event, :count).by(1)
     end
   end
 end

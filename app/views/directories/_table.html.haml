@@ -27,7 +27,7 @@
             %li
               = link_to '名前を変更', [:edit, dir]
             %li
-              = link_to '移動', '#', {data: {id: dir.id, toggle: 'modal', target: '#js-modal-directory', role: 'modal-launcher'}}
+              = link_to '移動', '#', data: {id: dir.id, toggle: 'modal', target: '#js-modal-directory', role: 'modal-launcher'}, class: 'link-move-directory'
             %li
               = link_to '複製', '#', {data: {id: dir.id, toggle: 'modal', target: '#js-modal-directory', role: 'modal-launcher'}}
             %li
