@@ -43,7 +43,7 @@ class FileitemsController < ApplicationController
 
   def destroy
     @file.destroy
-    redirect_to [@file.directory], notice: 'ファイルを削除しました'
+    redirect_to @file.directory, notice: 'ファイルを削除しました'
   end
 
   def move
@@ -100,6 +100,10 @@ class FileitemsController < ApplicationController
     event.fileitem_id      = @file.id
     event.request          = request
     event.action           = params[:action]
+    # event.path             = @source_path.presence || @file.pathname
+    # または
+    # event.path             = @source_path || @file.pathname
+    # でもいい気がする("" や [] になることはないので)
     event.path             = @source_path.present? ? @source_path : @file.pathname
     event.destination_path = @destination_path if @destination_path.present?
     event.save!

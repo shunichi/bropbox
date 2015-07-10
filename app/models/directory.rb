@@ -20,6 +20,7 @@ class Directory < ActiveRecord::Base
   has_many :shared_directories, dependent: :destroy
   has_many :publicate_directories, dependent: :destroy
 
+  # 同じ階層に同じ名前のディレクトリができないように validation を入れたい
   validates :user_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :name, presence: true, length: { maximum: 255 }
 

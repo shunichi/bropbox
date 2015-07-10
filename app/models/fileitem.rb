@@ -18,6 +18,7 @@ class Fileitem < ActiveRecord::Base
   has_many :shared_files, dependent: :destroy
   has_many :publicate_files, dependent: :destroy
 
+  # 同じ階層に同じ名前のファイルができないように validation を入れたい
   validates :directory_id, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :name, presence: true, length: { maximum: 255 }
 

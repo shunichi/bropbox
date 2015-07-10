@@ -1,5 +1,6 @@
 = simple_form_for(@directory) do |f|
-  = f.input :name, label: 'フォルダ名を入力して下さい'
+  -# ページが開いたときに入力欄にフォーカスがあたると親切だと思いました
+  = f.input :name, label: 'フォルダ名を入力して下さい', input_html: {autofocus: true}
   - if @directory.new_record?
     = hidden_field_tag 'parent_id', params[:parent_id]
   - else

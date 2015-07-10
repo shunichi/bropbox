@@ -90,6 +90,8 @@ class DirectoriesController < ApplicationController
       event.directory_id     = @directory.id
       event.request          = request
       event.action           = params[:action]
+      # event.path             = @directory.pathname.presence || @source_path
+      # と書ける
       event.path             = @directory.pathname.present? ? @directory.pathname : @source_path
       event.destination_path = @destination_directory.pathname if %w(update move copy).include?(params[:action])
       event.save!

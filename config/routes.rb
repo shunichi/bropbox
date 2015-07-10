@@ -39,10 +39,12 @@ Rails.application.routes.draw do
   namespace :my do
     resources :directories, only: %i() do
       resources :shared_directories, only: %i(index new create destroy)
+      # これは singular resource でいい気がします
       resources :publicate_directories, only: %i(index new create destroy)
     end
     resources :fileitems, only: %i() do
       resources :shared_files, only: %i(index new create destroy)
+      # これは singular resource でいい気がします
       resources :publicate_files, only: %i(index new create destroy)
     end
   end
